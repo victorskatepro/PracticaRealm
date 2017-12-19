@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="15dp"
+            android:id="@+id/linearToolbar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/profle"
+                android:id="@+id/imagenautor"
+                android:layout_marginRight="10dp"
+                app:border_color="@color/primary_dark"
+                app:border_width="2dp"
+                />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/txttitulo"
+                    android:textColor="@color/primary_text"
+                    android:text="Descarga de interiores"/>
+                <LinearLayout
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="0.5"
+                        android:textSize="17sp"
+                        android:id="@+id/txtpropietario"
+                        android:textColor="@color/secondary_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Propietario"/>
+                    <TextView
+                        android:textSize="17sp"
+                        android:layout_weight="0.2"
+                        android:id="@+id/txtfecha"
+                        android:textColor="@color/secondary_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jun. 29 a las  10.30pm"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_below="@+id/linearToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/imgpublicacion"
+            android:src="@drawable/build"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

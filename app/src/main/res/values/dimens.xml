@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="img_splash">200dp</dimen>
+    <dimen name="img_splashactivity">200dp</dimen>
+    <dimen name="splash_textsize_20sp">20sp</dimen>
+    <dimen name="splash_bottomborder_20dp">15dp</dimen>
+    <dimen name="splash_cardview_texsize_second">17sp</dimen>
+    <dimen name="login_textsize_olvidaste">10dp</dimen>
+    <dimen name="register_padding_20dp">20dp</dimen>
+    <dimen name="register_padding_10dp">20dp</dimen>
+    <dimen name="register_marginbottom_10dp">10dp</dimen>
+</resources>

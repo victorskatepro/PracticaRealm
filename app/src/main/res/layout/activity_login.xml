@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash"
+    android:padding="10dp"
+    tools:context="com.victorsaico.practicarealm.activities.activities.LoginActivity">
+
+
+
+        <LinearLayout
+            android:background="@drawable/background_transparent_round"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:padding="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout">
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginBottom="@dimen/splash_bottomborder_20dp"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Correo"
+                    android:id="@+id/edtcorreo"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/splash_textsize_20sp"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/splash_bottomborder_20dp"
+                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/splash_textsize_20sp"
+                    android:id="@+id/edtpassword"
+                    android:hint="Password"
+                    android:inputType="textPassword"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_marginBottom="@dimen/splash_bottomborder_20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrar"
+                android:onClick="goEntrar"
+                android:textColor="@color/icons"
+                android:background="@drawable/background_round"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar"
+                android:onClick="goRegistrar"
+                android:layout_marginBottom="@dimen/splash_bottomborder_20dp"
+                android:background="@drawable/background_whit_border_round"
+                android:textColor="@color/primary_dark"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Olvidaste tu contraseña?"
+                android:textColor="@color/secondary_text"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/login_textsize_olvidaste"
+                android:textSize="@dimen/splash_cardview_texsize_second"/>
+        </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_marginBottom="380dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"/>
+
+</RelativeLayout>
