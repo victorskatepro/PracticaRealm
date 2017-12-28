@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/register_padding_20dp"
-    android:paddingRight="@dimen/register_padding_20dp"
-    android:paddingTop="@dimen/register_padding_10dp"
-    tools:context="com.victorsaico.practicarealm.activities.activities.RegisterActivity">
+    tools:context="com.victorsaico.practicarealm.activities.activities.EditarPerfilActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbartoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_edit_toolbar"
+            android:background="@color/white"
+            android:elevation="4dp"
+            >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imbback"
+                android:onClick="goBack"
+                android:src="@drawable/back"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar Perfil"
+                android:textSize="@dimen/splash_textsize_20sp"
+                android:textColor="@color/primary_text"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
     <ScrollView
+        android:layout_below="@id/appbartoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
+            android:padding="@dimen/register_padding_20dp"
             android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/profle"
+                android:id="@+id/imgupdateprofile"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar foto"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/splash_textsize_20sp"
+                android:textColor="@color/primary_text"
+                android:id="@+id/txtupdatephoto"
+                android:onClick="updatePhoto"
+                android:layout_marginTop="@dimen/custom_margintop_5dp"
+                />
             <android.support.design.widget.TextInputLayout
                 android:layout_marginBottom="@dimen/register_marginbottom_10dp"
                 android:layout_width="match_parent"
@@ -26,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Nombre"
                     android:digits="qwertyuiopasdfghjklñzxcvbnm"
-                    android:id="@+id/edtregisternombre"
+                    android:id="@+id/edtupdatenombre"
                     android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
@@ -35,12 +76,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.design.widget.TextInputEditText
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Correo"
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/edtregistercorreo"
+                    android:id="@+id/edtupdatecorreo"
                     android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
@@ -51,9 +90,9 @@
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Telefono"
-                    android:inputType="number"
-                    android:id="@+id/edtregistertelefono"
+                    android:hint="Teléfono"
+                    android:digits="0123456789"
+                    android:id="@+id/edtupdatetelefono"
                     android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
@@ -65,8 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Empresa"
-                    android:id="@+id/edtregisterempresa"
-                    android:digits="qwertyuiopasdfghjklñzxcvbnm1234567890"
+                    android:digits="qwertyuiopasdfghjklñzxcvbnm0123456789"
+                    android:id="@+id/edtupdateempresa"
                     android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
@@ -77,10 +116,24 @@
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edtregisterpassword"
-                    android:hint="Contraseña"
+                    android:hint="Contraseña actual"
+                    android:digits="qwertyuiopasdfghjklñzxcvbnm0123456789"
                     android:inputType="textPassword"
-                    android:digits="qwertyuiopasdfghjklñzxcvbnm1234567890"
+                    android:id="@+id/edtupdatepassword1"
+                    android:textSize="@dimen/splash_textsize_20sp"
+                    android:textColor="@color/primary_text"/>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginBottom="@dimen/register_marginbottom_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña nueva"
+                    android:digits="qwertyuiopasdfghjklñzxcvbnm0123456789"
+                    android:inputType="textPassword"
+                    android:id="@+id/edtupdatepassword2"
                     android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
@@ -92,39 +145,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Confirmar contraseña"
-                    android:id="@+id/edtregisterpassword2"
-                    android:textSize="@dimen/splash_textsize_20sp"
+                    android:digits="qwertyuiopasdfghjklñzxcvbnm0123456789"
                     android:inputType="textPassword"
-                    android:digits="qwertyuiopasdfghjklñzxcvbnm1234567890"
+                    android:id="@+id/edtupdatepassword3"
+                    android:textSize="@dimen/splash_textsize_20sp"
                     android:textColor="@color/primary_text"/>
             </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:id="@+id/imgprofile2"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/build"/>
-            <Button
-                android:background="@drawable/background_round"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="200dp"
-                android:text="Capturar Foto"
-                android:onClick="takePicture"
-                android:textColor="@color/icons"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_marginTop="15dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Registrarse"
-                android:onClick="Register"
-                android:textColor="@color/primary_dark"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/background_whit_border_round"/>
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

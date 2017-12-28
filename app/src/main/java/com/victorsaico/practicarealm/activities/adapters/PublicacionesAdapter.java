@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.victorsaico.practicarealm.R;
+import com.victorsaico.practicarealm.activities.activities.MainActivity;
 import com.victorsaico.practicarealm.activities.models.Publicacion;
 import com.victorsaico.practicarealm.activities.models.Usuario;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by JARVIS on 19/12/2017.
  */
 
 public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdapter.ViewHolder> {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private List<Publicacion> publicaciones ;
     private Realm realm = Realm.getDefaultInstance();
@@ -36,10 +40,19 @@ public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdap
     public PublicacionesAdapter(Activity activity)
     {
         this.publicaciones = new ArrayList<>();
-        this.activity = activity;    }
+        this.activity = activity;
+    }
 
-    public void setPublicaciones(RealmResults<Publicacion> pubs) {
+    public void setPublicaciones(List<Publicacion> pubs) {
         this.publicaciones = pubs;
+    }
+
+    public void setFilter(ArrayList<Publicacion> publicacionesFilter)
+    {
+        Log.d(TAG,"listafiltrada"+ publicacionesFilter);
+        publicaciones = new ArrayList<>();
+        publicaciones.addAll(publicacionesFilter);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -78,20 +91,49 @@ public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdap
                 .equalTo("publicacions.id",publicacion.getId()).findFirst();
         Context applicationContext = activity.getApplicationContext();
         Bitmap bitmap = null;
+        Bitmap bitmap2 = null;
+        //convertimos los string a uri para poder obtener la referencia de la imagen
         try {
             Uri uri = Uri.parse(user.getImagenprofile());
             bitmap = MediaStore.Images.Media.getBitmap(applicationContext.getContentResolver(), uri);
             viewholder.imagenautor.setImageBitmap(bitmap);
+            Uri uri2 = Uri.parse(publicacion.getImagen());
+            bitmap2 = MediaStore.Images.Media.getBitmap(applicationContext.getContentResolver(), uri2);
+            viewholder.imagenpub.setImageBitmap(bitmap2);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String time = getDate(publicacion.getFecha());
+        Log.d(TAG,"publicacion:"+publicacion);
         viewholder.titulopub.setText(publicacion.getTitulo());
-        viewholder.fechapub.setText(publicacion.getFecha());
-        viewholder.imagenpub.setImageResource(publicacion.getImagen());
+        viewholder.fechapub.setText(time);
         viewholder.autorpub.setText(user.getNombre());
        // viewholder.imagenautor.setImageByte;
     }
 
+    public String getDate(Date date)
+    {
+        String time = null;
+        try {
+            SimpleDateFormat fecha = new SimpleDateFormat("MMM dd");
+            SimpleDateFormat hora = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat type = new SimpleDateFormat("a");
+            Log.d(TAG, fecha.format(date) + "a las " + hora.format(date));
+
+            String hor = type.format(date);
+            String fechaformat = String.valueOf(fecha.format(date));
+            String horaformat = String.valueOf(hora.format(date));
+
+            String h = hor.substring(0, 1);
+            String o = hor.substring(3, 4);
+            String marker = h + o;
+            time = fechaformat + " a las " + horaformat + marker;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return time;
+    }
     @Override
     public int getItemCount()
     {

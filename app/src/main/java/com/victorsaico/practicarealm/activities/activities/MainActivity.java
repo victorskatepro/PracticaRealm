@@ -2,17 +2,24 @@ package com.victorsaico.practicarealm.activities.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.victorsaico.practicarealm.R;
-import com.victorsaico.practicarealm.activities.adapters.PublicacionesAdapter;
+import com.victorsaico.practicarealm.activities.fragments.CalendarFragment;
+import com.victorsaico.practicarealm.activities.fragments.HomeFragment;
+import com.victorsaico.practicarealm.activities.fragments.MessagesFragment;
+import com.victorsaico.practicarealm.activities.fragments.ProfileFragment;
+import com.victorsaico.practicarealm.activities.fragments.RegisterFragment;
 import com.victorsaico.practicarealm.activities.models.Publicacion;
-import com.victorsaico.practicarealm.activities.models.Usuario;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -22,50 +29,64 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView publicacioneslist;
     private Realm realm = Realm.getDefaultInstance();
     private static final String TAG = RegisterActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Fragment homeFragment = new HomeFragment();
+        final Fragment calendarFragment = new CalendarFragment();
+        final Fragment messageFragment = new MessagesFragment();
+        final Fragment profileFragment = new ProfileFragment();
+        final Fragment registerFragment = new RegisterFragment();
 
         RealmResults<Publicacion> pubs = realm.where(Publicacion.class).findAll();
 
-        insertarData();
+       // insertarData();
 
         Log.d(TAG,"pubs:"+pubs);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        publicacioneslist = (RecyclerView) findViewById(R.id.recyclerview);
-
-        publicacioneslist.setLayoutManager(new LinearLayoutManager(this));
-
-        publicacioneslist.setAdapter(new PublicacionesAdapter(this));
-
-        PublicacionesAdapter adapter = (PublicacionesAdapter)publicacioneslist.getAdapter();
-        adapter.setPublicaciones(pubs);
-
-    }
-    public void goLogout(View view) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            boolean success = editor.putBoolean("islogged", false).commit();
-            finish();
-    }
-    public void insertarData(){
-        final Publicacion p = new Publicacion(0,"publicacion1","jun.29 a las 10:30 pm",R.drawable.imagen1);
-        final Publicacion p2 = new Publicacion(1, "publicacion2", "jun.29 a las 10:30 pm",R.drawable.imagen2);
-        final Publicacion p3 = new Publicacion(2,"Publicacion3", "jun.29 a las 10:30 pm", R.drawable.imagen3);
-
-        realm.executeTransaction(new Realm.Transaction() {
+        //Configuracion del bottomnavigation
+        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.bnve);
+        bnve.enableAnimation(false);
+        bnve.enableShiftingMode(false);
+        bnve.enableItemShiftingMode(false);
+         //Inicializar el primer fragment
+        if (savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content, homeFragment).commit();
+        }
+        //funcion para cambiar entre fragments cuando se precionan
+        bnve.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        {
             @Override
-            public void execute(Realm realm) {
-                Usuario user = realm.where(Usuario.class).findFirst();
-                user.getPublicacions().add(p);
-                user.getPublicacions().add(p2);
-                user.getPublicacions().add(p3);
-
-                Log.d(TAG,"publicaciones: "+user.getPublicacions());
+            public boolean onNavigationItemSelected(@NonNull MenuItem item)
+            {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if(item.getItemId() == R.id.itmmenu)
+                {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content, homeFragment ).commit();
+                }else if (item.getItemId() == R.id.itmcalendar)
+                {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content, calendarFragment).commit();
+                }else if (item.getItemId() == R.id.itmadd)
+                {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content, registerFragment).commit();
+                }else if (item.getItemId() == R.id.itmcomment)
+                {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content, messageFragment).commit();
+                }else if (item.getItemId() == R.id.itmperfil)
+                {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content, profileFragment).commit();
+                }
+                return true;
             }
         });
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.victorsaico.practicarealm.activities.models;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,20 +14,15 @@ public class Publicacion extends RealmObject {
     private int id;
 
     private String titulo;
-    private String fecha;
-    private Integer imagen;
+    private Date fecha;
+    private String imagen;
 
 
-    public Publicacion(int id, String titulo, String fecha, Integer imagen) {
-        this.id = id;
-        this.titulo = titulo;
-        this.fecha = fecha;
-        this.imagen = imagen;
-    }
 public Publicacion()
 {
 
 }
+
     public int getId() {
         return id;
     }
@@ -42,19 +39,19 @@ public Publicacion()
         this.titulo = titulo;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public Integer getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Integer imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -63,8 +60,8 @@ public Publicacion()
         return "Publicacion{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
-                ", fecha='" + fecha + '\'' +
-                ", imagen=" + imagen +
+                ", fecha=" + fecha +
+                ", imagen='" + imagen + '\'' +
                 '}';
     }
 }

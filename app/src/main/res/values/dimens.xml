@@ -9,4 +9,9 @@
     <dimen name="register_padding_20dp">20dp</dimen>
     <dimen name="register_padding_10dp">20dp</dimen>
     <dimen name="register_marginbottom_10dp">10dp</dimen>
+    <dimen name="bottom_width">200dp</dimen>
+    <dimen name="fg_register_button_width_200dp">200dp</dimen>
+    <dimen name="custom_margintop_5dp">5dp</dimen>
+    <dimen name="fragment_width_200dp">230dp</dimen>
+    <dimen name="icon_custom">50dp</dimen>
 </resources>

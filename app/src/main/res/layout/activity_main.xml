@@ -6,19 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.victorsaico.practicarealm.activities.activities.MainActivity">
-    <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/recyclerview"
-        android:layout_below="@+id/btnlogout"
-        android:layout_marginTop="8dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="8dp"/>
 
-    <Button
-        android:id="@+id/btnlogout"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:id="@+id/bnve"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:onClick="goLogout"/>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/white_grey_border_top"
+        app:menu="@menu/menu_bottomnavigation" />
 </RelativeLayout>

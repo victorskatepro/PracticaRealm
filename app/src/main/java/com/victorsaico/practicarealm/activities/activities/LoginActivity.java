@@ -19,6 +19,7 @@ import com.victorsaico.practicarealm.activities.models.Usuario;
 import java.util.regex.Pattern;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtCorreo;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         edtCorreo = (EditText) findViewById(R.id.edtcorreo);
         edtpassword = (EditText) findViewById(R.id.edtpassword);
         initShared();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     public void goRegistrar(View view) {
@@ -62,21 +64,28 @@ public class LoginActivity extends AppCompatActivity {
             edtCorreo.setError("Correo no valido");
         }
         Usuario usuario = realm.where(Usuario.class).equalTo("correo", correo).equalTo("contrasena", password).findFirst();
+        RealmResults<Usuario> user = realm.where(Usuario.class).findAll();
+        Log.d(TAG,"usuarios"+user);
         if(usuario == null )
         {
            edtCorreo.setError("Correo y/o password incorrecto");
         }else {
             Log.d(TAG, "usuario" + usuario);
-            guardarShared(usuario.getCorreo(),usuario.getNombre());
+            guardarShared(usuario);
+            finish();
             goMain();
         }
     }
-    public void guardarShared(String correo, String nombre)
+    public void guardarShared(Usuario usuario)
     {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         boolean success = editor
-                .putString("nombre",nombre)
-                .putString("correo", correo)
+                .putString("nombre",usuario.getNombre())
+                .putString("correo", usuario.getCorreo())
+                .putString("imageprofile", usuario.getImagenprofile())
+                .putString("telefono", String.valueOf(usuario.getTelefono()))
+                .putInt("id", usuario.getId())
+                .putString("empresa", usuario.getEmpresa())
                 .putBoolean("islogged", true)
                 .commit();
         goMain();
